@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>张三 - 个人简历</title>
+<style>
+/* ===== Reset & Base ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+  color: #1a1a2e;
+  background: #f8f9fa;
+  line-height: 1.7;
+}
+
+/* ===== Nav ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  display: flex; justify-content: center; gap: 2rem;
+  padding: 1rem 1.5rem;
+}
+.nav a {
+  text-decoration: none; color: #555; font-size: 0.95rem; font-weight: 500;
+  transition: color 0.2s;
+}
+.nav a:hover { color: #2563eb; }
+
+/* ===== Section Common ===== */
+.section { padding: 5rem 1.5rem; max-width: 860px; margin: 0 auto; }
+.section-title {
+  font-size: 1.8rem; font-weight: 700; text-align: center;
+  margin-bottom: 2.5rem; position: relative;
+}
+.section-title::after {
+  content: ""; display: block;
+  width: 50px; height: 3px; background: #2563eb;
+  margin: 0.6rem auto 0; border-radius: 2px;
+}
+
+/* ===== Hero ===== */
+.hero {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding-top: 4rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+  color: #fff;
+}
+.hero-content { max-width: 640px; }
+.hero-avatar {
+  width: 120px; height: 120px; border-radius: 50%;
+  object-fit: cover; border: 4px solid rgba(255,255,255,0.3);
+  margin-bottom: 1.5rem;
+}
+.hero h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -0.5px; }
+.hero .subtitle { font-size: 1.2rem; color: rgba(255,255,255,0.75); margin-top: 0.5rem; }
+.hero .tagline { font-size: 1rem; color: rgba(255,255,255,0.6); margin-top: 1rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+.hero-links { margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.hero-links a {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.6rem 1.2rem; border-radius: 8px;
+  text-decoration: none; font-weight: 500; font-size: 0.9rem;
+  transition: all 0.2s;
+}
+.btn-primary { background: #fff; color: #1a1a2e; }
+.btn-primary:hover { background: #e2e8f0; transform: translateY(-1px); }
+.btn-secondary { border: 1px solid rgba(255,255,255,0.4); color: #fff; }
+.btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+/* ===== About ===== */
+.about-text { font-size: 1.05rem; color: #555; text-align: center; max-width: 600px; margin: 0 auto; }
+
+/* ===== Skills ===== */
+.skills-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+.skill-category {
+  background: #fff; border-radius: 12px; padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.skill-category h3 { font-size: 1rem; margin-bottom: 1rem; color: #2563eb; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.skill-tag {
+  background: #eff6ff; color: #1e40af; font-size: 0.8rem; padding: 0.3rem 0.7rem;
+  border-radius: 20px; font-weight: 500;
+}
+
+/* ===== Experience / Education ===== */
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before {
+  content: ""; position: absolute; left: 0; top: 8px; bottom: 8px;
+  width: 2px; background: #e2e8f0;
+}
+.timeline-item { position: relative; margin-bottom: 2rem; }
+.timeline-item::before {
+  content: ""; position: absolute; left: -2rem; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #2563eb; border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #2563eb;
+}
+.timeline-item h3 { font-size: 1.1rem; font-weight: 600; }
+.timeline-item .meta { font-size: 0.85rem; color: #888; margin-bottom: 0.4rem; }
+.timeline-item .meta span { margin-right: 1rem; }
+.timeline-item ul { margin-top: 0.5rem; padding-left: 1.2rem; color: #555; font-size: 0.95rem; }
+.timeline-item li { margin-bottom: 0.3rem; }
+
+/* ===== Projects ===== */
+.projects-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+.project-card {
+  background: #fff; border-radius: 12px; padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.project-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+.project-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.4rem; }
+.project-card p { font-size: 0.9rem; color: #666; margin-bottom: 0.8rem; }
+.project-card .tech { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.project-card .tech span {
+  background: #f0fdf4; color: #166534; font-size: 0.75rem;
+  padding: 0.2rem 0.6rem; border-radius: 12px;
+}
+
+/* ===== Contact ===== */
+.contact-info {
+  text-align: center; display: flex; flex-direction: column; gap: 0.8rem;
+  font-size: 1rem; color: #555;
+}
+.contact-info a { color: #2563eb; text-decoration: none; font-weight: 500; }
+.contact-info a:hover { text-decoration: underline; }
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center; padding: 2rem; font-size: 0.85rem; color: #aaa;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .nav { justify-content: flex-start; gap: 1.2rem; overflow-x: auto; }
+  .hero h1 { font-size: 2rem; }
+  .section { padding: 3.5rem 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="#about">关于</a>
+  <a href="#skills">技能</a>
+  <a href="#experience">经历</a>
+  <a href="#projects">项目</a>
+  <a href="#contact">联系</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <img class="hero-avatar" src="https://placehold.co/120x120/2563eb/ffffff?text=ZS" alt="头像">
+    <h1>张 三</h1>
+    <p class="subtitle">高级前端工程师</p>
+    <p class="tagline">5年Web开发经验，专注于构建高性能、可维护的前端应用，热爱开源与技术分享。</p>
+    <div class="hero-links">
+      <a class="btn-primary" href="#contact">联系我</a>
+      <a class="btn-secondary" href="#" target="_blank">GitHub</a>
+      <a class="btn-secondary" href="#" target="_blank">下载简历 PDF</a>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="section">
+  <h2 class="section-title">关于我</h2>
+  <p class="about-text">
+    我是一名热爱技术的前端工程师，擅长 React、Vue 等现代前端框架，对用户体验和性能优化有深入理解。
+    工作中注重代码质量与团队协作，乐于探索新技术并应用到实际项目中。业余时间活跃于开源社区，
+    贡献过多个知名项目的文档翻译与Bug修复。
+  </p>
+</section>
+
+<!-- Skills -->
+<section id="skills" class="section">
+  <h2 class="section-title">专业技能</h2>
+  <div class="skills-grid">
+    <div class="skill-category">
+      <h3>前端框架</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">Vue</span>
+        <span class="skill-tag">Next.js</span>
+        <span class="skill-tag">TypeScript</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <h3>样式 &amp; 工程化</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Tailwind CSS</span>
+        <span class="skill-tag">Sass</span>
+        <span class="skill-tag">Webpack</span>
+        <span class="skill-tag">Vite</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <h3>后端 &amp; 数据库</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">Redis</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <h3>工具 &amp; DevOps</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">CI/CD</span>
+        <span class="skill-tag">Linux</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience" class="section">
+  <h2 class="section-title">工作经历</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h3>高级前端工程师 — ABC 科技</h3>
+      <p class="meta"><span>2023.03 - 至今</span><span>北京</span></p>
+      <ul>
+        <li>负责公司核心 SaaS 产品的前端架构设计与开发，支撑日均 10w+ UV</li>
+        <li>主导前端性能优化，首屏加载时间从 3.2s 降至 1.1s</li>
+        <li>搭建组件库与脚手架工具，提升团队开发效率 40%</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <h3>前端工程师 — XYZ 网络</h3>
+      <p class="meta"><span>2021.07 - 2023.02</span><span>上海</span></p>
+      <ul>
+        <li>参与电商平台前端开发，使用 React + TypeScript 重构老旧的 jQuery 页面</li>
+        <li>开发可视化拖拽表单系统，降低运营配置成本 60%</li>
+        <li>编写单元测试与 E2E 测试用例，项目覆盖率从 20% 提升至 85%</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Education -->
+<section id="education" class="section">
+  <h2 class="section-title">教育背景</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h3>XX 大学 — 计算机科学与技术</h3>
+      <p class="meta"><span>学士</span><span>2017.09 - 2021.06</span></p>
+      <p style="color:#555;font-size:0.95rem;">GPA 3.8/4.0，获校级奖学金。参加 ACM 校赛获银奖。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" class="section">
+  <h2 class="section-title">项目作品</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <h3>E-Commerce 电商平台</h3>
+      <p>全栈电商网站，支持商品展示、购物车、支付、订单管理等完整业务流程。</p>
+      <div class="tech">
+        <span>React</span><span>Node.js</span><span>MongoDB</span><span>Stripe</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <h3>Markdown 笔记应用</h3>
+      <p>支持实时预览、多级目录、标签管理的 Markdown 在线笔记工具。</p>
+      <div class="tech">
+        <span>Vue 3</span><span>Pinia</span><span>Tailwind CSS</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <h3>低代码表单设计器</h3>
+      <p>拖拽式表单配置系统，支持自定义组件、规则引擎与数据联动。</p>
+      <div class="tech">
+        <span>React</span><span>TypeScript</span><span>Ant Design</span><span>DnD Kit</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <h3>个人博客系统</h3>
+      <p>基于 Next.js 的静态博客，支持 MDX 写作、RSS 订阅与全文搜索。</p>
+      <div class="tech">
+        <span>Next.js</span><span>MDX</span><span>Vercel</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="section">
+  <h2 class="section-title">联系方式</h2>
+  <div class="contact-info">
+    <p><strong>邮箱：</strong><a href="mailto:zhangsan@example.com">zhangsan@example.com</a></p>
+    <p><strong>电话：</strong><a href="tel:+8613800000000">138-0000-0000</a></p>
+    <p><strong>GitHub：</strong><a href="https://github.com/zhangsan" target="_blank">github.com/zhangsan</a></p>
+    <p><strong>所在地：</strong>北京市朝阳区</p>
+  </div>
+</section>
+
+<footer class="footer">
+  &copy; 2024 张三. All rights reserved.
+</footer>
+
+</body>
+</html>
